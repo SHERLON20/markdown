@@ -1,5 +1,5 @@
 import flet as ft 
-def main(page:ft.page):
+def main(page:ft.Page):
     def update_view(e):
         view.value=editor.value
         view.update()
@@ -19,6 +19,7 @@ def main(page:ft.page):
     how_to=ft.Container(
         expand=True,
         col={'xs':12,'lg':6},
+        bgcolor=ft.colors.with_opacity(color=[ft.colors.WHITE,ft.colors.BLACK12],opacity=0.6),
         padding=ft.padding.all(30),
         content=ft.Column(
             scroll=ft.ScrollMode.ALWAYS,
@@ -44,7 +45,11 @@ def main(page:ft.page):
         code_theme='monokai-sublime',
         on_tap_link=lambda e: page.launch_url(e.data),
     )
-    layout=ft.Row(
+    layout=ft.Container(
+        padding=ft.padding.symmetric(vertical=100),
+        height=700,
+        width=400,
+    content=ft.Row(
         expand=True,
         spacing=0,
         vertical_alignment=ft.CrossAxisAlignment.STRETCH,
@@ -67,6 +72,10 @@ def main(page:ft.page):
                 ),
         ]
     )
+    )
+    page.horizontal_alignment=ft.CrossAxisAlignment.CENTER
+    page.vertical_alignment=ft.MainAxisAlignment.CENTER
+    page.scroll=ft.ScrollMode.HIDDEN
     page.add(layout)
 if __name__=="__main__":
-    ft.app(target=main)
+    ft.app(target=main,view=ft.WEB_BROWSER)
